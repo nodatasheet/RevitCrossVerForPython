@@ -78,7 +78,7 @@ class _FormatOptions(_CrossVersionRevitObject):
 
     def get_units_of_measure(self):
         # type: (DB.FormatOptions) -> AbstractUnitsOfMeasurement
-        if RevitVersion.as_integer() < 2021:
+        if self._rvt_ver_num < 2021:
             return self._format_opts.DisplayUnits
         return self._format_opts.GetUnitTypeId()
 
@@ -90,7 +90,7 @@ class _UnitUtils(_CrossVersionRevitObject):
     def is_unit_of_measure(self, unit_of_measure):
         # type: (AbstractUnitsOfMeasurement) -> bool
         if self._rvt_ver_num < 2021:
-            return self._unit_utils.IsValidDisplayUnit()
+            return self._unit_utils.IsValidDisplayUnit(unit_of_measure)
         return self._unit_utils.IsUnit(unit_of_measure)
 
     def is_valid_unit_of_measure(self, unit_type, unit_of_measure):
